@@ -24,6 +24,7 @@ import java.util.Map;
 import com.amazonaws.services.secretsmanager.AWSSecretsManager;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
+import com.amazonaws.services.secretsmanager.model.InvalidRequestException;
 import com.amazonaws.services.secretsmanager.model.ResourceNotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -149,7 +150,7 @@ public class AwsSecretsManagerEnvironmentRepository implements EnvironmentReposi
 				}
 			}
 		}
-		catch (ResourceNotFoundException | IOException e) {
+		catch (ResourceNotFoundException | InvalidRequestException | IOException e) {
 			log.debug(String.format(
 					"Skip adding propertySource. Unable to load secrets from AWS Secrets Manager for secretId=%s",
 					path), e);
